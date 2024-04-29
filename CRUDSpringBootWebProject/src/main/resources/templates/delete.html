@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+    <form id="deleteForm">
+        <label>Enter Id to be deleted: </label>
+        <input type="text" id="roll" name="roll"/>
+        <input type="button" value="Delete" onclick="deleteStudent()"/>
+    </form>
+
+    <script>
+        function deleteStudent() {
+            var rollValue = document.getElementById('roll').value;
+
+            // Using Fetch API to send a DELETE request
+            fetch('/deleteStudent/' + rollValue, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // body: JSON.stringify({}),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Handle the response data as needed
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+    </script>
+</body>
+</html>
